@@ -4,10 +4,10 @@ import "testing"
 
 func TestSearcha2dmatrix(t *testing.T) {
 	testCases := [][]interface{}{
-		[]interface{}{[][]int{[]int{1, 3, 5, 7}, []int{10, 11, 16, 20}, []int{23, 30, 34, 60}}, 3, true},
-		[]interface{}{[][]int{[]int{1}}, 2, false},
-		[]interface{}{[][]int{[]int{1, 3}}, 3, true},
-		[]interface{}{[][]int{[]int{1}, []int{3}}, 4, false},
+		{[][]int{{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}, 3, true},
+		{[][]int{{1}}, 2, false},
+		{[][]int{{1, 3}}, 3, true},
+		{[][]int{{3}}, 4, false},
 	}
 
 	for index, values := range testCases {

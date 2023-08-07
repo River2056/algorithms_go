@@ -4,7 +4,7 @@ import "testing"
 
 func TestNumberofwaystotraversegraph(t *testing.T) {
 	testCases := [][]interface{}{
-		[]interface{}{[]int{4, 3}, 10},
+		{[]int{4, 3}, 10},
 	}
 
 	for _, values := range testCases {
