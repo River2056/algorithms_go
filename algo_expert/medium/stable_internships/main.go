@@ -5,7 +5,7 @@ import "fmt"
 func StableInternships(interns [][]int, teams [][]int) [][]int {
 	chosenIntern := make(map[int]int)
 
-	freeInterns := make([]int, len(interns))
+	freeInterns := make([]int, 0)
 	for i := range interns {
 		freeInterns = append(freeInterns, i)
 	}
@@ -28,14 +28,29 @@ func StableInternships(interns [][]int, teams [][]int) [][]int {
 		currentIntern := freeInterns[len(freeInterns)-1]
 		freeInterns = freeInterns[:len(freeInterns)-1]
 		currentInternChoice := internInitialChoice[currentIntern]
+		internInitialChoice[currentIntern]++
 		internPreferredTeam := interns[currentIntern][currentInternChoice]
 
-		if _, ok := chosenIntern[currentIntern]; !ok {
+		if _, ok := chosenIntern[internPreferredTeam]; !ok {
 			chosenIntern[internPreferredTeam] = currentIntern
 		} else {
-
+			assignedIntern := chosenIntern[internPreferredTeam]
+            assignInternRank := teamsMap[internPreferredTeam].(map[int]int)[assignedIntern]
+            currentInternRank := teamsMap[internPreferredTeam].(map[int]int)[currentIntern]
+            fmt.Printf("assignInternRank: %v, currentInternRank: %v\n", assignInternRank, currentInternRank)
+            if currentInternRank < assignInternRank {
+                chosenIntern[internPreferredTeam] = currentIntern
+			    freeInterns = append(freeInterns, assignedIntern)
+            } else {
+                freeInterns = append(freeInterns, currentIntern)
+            }
 		}
 	}
 
-	return [][]int{}
+	result := make([][]int, 0)
+	for key, value := range chosenIntern {
+		result = append(result, []int{key, value})
+	}
+
+	return result
 }
